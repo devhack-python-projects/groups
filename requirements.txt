@@ -18,6 +18,6 @@ requests==2.19.1
 ruamel-yaml==0.15.46
 six==1.11.0
 urllib3==1.23
-vboxapi==1.0
+# vboxapi==1.0
 # win-inet-pton==1.0.1
 # wincertstore==0.2
