@@ -1,1 +1,1 @@
-web: gunicorn Group_project:wsgi
+web: gunicorn Group_project.wsgi
