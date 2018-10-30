@@ -19,5 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('groups/', include('Applications.grupo_app.urls')),
-
+    path('api/',include(("Applications.grupo_app.urls_api","grupo_app"),namespace="socialnetwork_project_api"),),
 ]
