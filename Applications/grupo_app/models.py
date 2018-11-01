@@ -6,7 +6,7 @@ class User(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length= 20)
-    author = models.OneToOneField(User, on_delete=models.CASCADE, related_name= "author")
+    author = models.OneToOneField(User, on_delete=models.CASCADE, related_name= "author",null = True)
     description = models.CharField(max_length= 100)
     members = models.ManyToManyField(User, related_name= "members")
 

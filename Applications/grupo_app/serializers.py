@@ -19,9 +19,9 @@ class Group(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'author',
+            #'author',
             'description',
-            'members',
+            #'members',
         )
 
 

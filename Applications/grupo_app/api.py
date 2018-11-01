@@ -8,12 +8,13 @@ from . import (
     serializers
 )
 
-class Post(APIView):
-    serializer_class = serializers.Post
+class Groups(APIView):
+    serializer_class = serializers.Group
 
     def get(self, request, *args, **kwargs):
-        posts = models.Post.objects.all()
-        serializer = self.serializer_class(posts, many=True)
+        print(vars(request))
+        groups = models.Group.objects.all()
+        serializer = self.serializer_class(groups, many=True)
         return Response(serializer.data, status=200)
 
     def post(self, request, *args, **kwargs):
@@ -25,37 +26,37 @@ class Post(APIView):
         else:
             print("Error")
             print(serializer.errors)
-            return Response(serializer.errors)
-
-
-class PostWithId(APIView):
-
-    serializer_class = serializers.Post
-
-    def get(self, request, *args, **kwargs):
-        post_id = self.kwargs.get("id", "")
-        print(models.Post.objects.all())
-        post = get_object_or_404(models.Post, pk=post_id)
-        serializer = self.serializer_class(post)
-        return Response(serializer.data, status=200)
-
-    def put(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=self.request.POST)
-        print(self.request.POST)
-        if serializer.is_valid():
-            post_id = self.kwargs.get("id", "")
-            post = get_object_or_404(models.Post, pk=post_id)
-            post.title = serializer.data.get("title", "")
-            post.body = serializer.data.get("body", "")
-            post.save()
-            return Response(serializer.data, status=200)
-        else:
-            print("Error")
-            print(serializer.errors)
-            return Response(serializer.errors)
-
-    def delete(self, request, *args, **kwargs):
-        post_id = self.kwargs.get("id", "")
-        post = get_object_or_404(models.Post, pk =post_id)
-        post.delete()
-        return Response({"status": "deleted"})
+            return Response(serializer.errors, status=400)
+#
+#
+# class PostWithId(APIView):
+#
+#     serializer_class = serializers.Post
+#
+#     def get(self, request, *args, **kwargs):
+#         post_id = self.kwargs.get("id", "")
+#         print(models.Post.objects.all())
+#         post = get_object_or_404(models.Post, pk=post_id)
+#         serializer = self.serializer_class(post)
+#         return Response(serializer.data, status=200)
+#
+#     def put(self, request, *args, **kwargs):
+#         serializer = self.serializer_class(data=self.request.POST)
+#         print(self.request.POST)
+#         if serializer.is_valid():
+#             post_id = self.kwargs.get("id", "")
+#             post = get_object_or_404(models.Post, pk=post_id)
+#             post.title = serializer.data.get("title", "")
+#             post.body = serializer.data.get("body", "")
+#             post.save()
+#             return Response(serializer.data, status=200)
+#         else:
+#             print("Error")
+#             print(serializer.errors)
+#             return Response(serializer.errors)
+#
+#     def delete(self, request, *args, **kwargs):
+#         post_id = self.kwargs.get("id", "")
+#         post = get_object_or_404(models.Post, pk =post_id)
+#         post.delete()
+#         return Response({"status": "deleted"})
