@@ -1,7 +1,9 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+import jwt
+import requests
+import json
 
 from . import (
     models,
@@ -18,15 +20,26 @@ class Groups(APIView):
         return Response(serializer.data, status=200)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=self.request.POST)
-        if serializer.is_valid():
-            post = serializer.save()
-            print(post)
-            return Response(serializer.data, status=200)
+        token = request.META.get("HTTP_AUTHORIZATION", "")
+        token = token.replace("JWT ", "")
+        response = requests.get("http://ma0collazos.pythonanywhere.com/verify/", headers={"authorization": token})
+        print(response.content)
+        print(response.status_code)
+        if response.status_code == 201:
+            #return http.HttpResponse(token)
+            decoded = jwt.decode(token, verify=False)
+
+            serializer = self.serializer_class(data=self.request.POST)
+            if serializer.is_valid():
+                post = serializer.save()
+                print(post)
+                return Response(serializer.data, status=200)
+            else:
+                print("Error")
+                print(serializer.errors)
+                return Response(serializer.errors, status=400)
         else:
-            print("Error")
-            print(serializer.errors)
-            return Response(serializer.errors, status=400)
+            return Response("error",status = 401)
 #
 #
 # class PostWithId(APIView):
