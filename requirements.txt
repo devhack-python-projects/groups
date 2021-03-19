@@ -4,7 +4,7 @@ cffi==1.11.5
 chardet==3.0.4
 cryptography==2.3.1
 Django==2.1.2
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 idna==2.7
 numpy==1.15.2
 open3d-python==0.3.0.0
