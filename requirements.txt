@@ -9,7 +9,7 @@ idna==2.7
 numpy==1.15.2
 open3d-python==0.3.0.0
 pycparser==2.19
-PyJWT==1.6.4
+PyJWT==2.4.0
 pyOpenSSL==18.0.0
 PySocks==1.6.8
 pytz==2018.5
